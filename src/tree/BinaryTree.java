@@ -81,7 +81,51 @@ public class BinaryTree {
 
     }
     //删除结点
-    //Todo
+    /**
+     * 功能描述: 
+     * 删除节点，有三种情况，没有子节点，只有一个子节点，或者子节点下面还有节点
+     * @author: lanyangjia
+     * @date: 2019/1/21 
+     * @param value  
+     * @return: 
+     **/
+    public void delete(int value) {
+        Node p = this.root;//要删除的节点，先从子节点开始
+        Node pp = null;//要删除节点的父节点
+
+        //先找到这个点
+        while (p != null && p.value != value) {
+            pp = p;
+            if(p.value > value) p = p.rightChild;
+            else p = p.leftChild;
+        }
+        if(p == null) return;//没找到
+
+        //找到该节点，要判断节点的情况，对不同情况进行删除
+        //要删除的节点有两个子节点,从右边中找最小的值，放在要删除节点位置
+        if(p.leftChild != null && p.rightChild != null) {
+            Node minP = p.rightChild;
+            Node minPP = p;//表示minP的父节点
+            while (minP.leftChild != null) {
+                minPP = minP;
+                minP = minP.leftChild;
+            }
+            p.value = minP.value;//将minP的数据交换到p中
+            p = minP; //下面就变成了删除minP了
+            pp = minPP;
+        }
+
+        //删除节点是一个节点或者只有一个子节点
+        Node child;//p的子节点
+        if(p.leftChild != null) child = p.leftChild;
+        else if(p.rightChild != null) child = p.rightChild;
+        else child = null;
+
+        if(pp == null) root = child;//删除的根节点
+        else if(pp.leftChild == p) pp.leftChild = child;
+        else pp.rightChild = child;
+
+    }
 
     //前序遍历
     public void preOrderTraverse() {
@@ -116,6 +160,19 @@ public class BinaryTree {
         postOrderTraverse(node.rightChild);
         node.display();
     }
+
+    public int depth() {
+        return depth(this.root);
+    }
+
+    //递归计算树的深度
+    public int depth(Node node) {
+        //把问题分解，如果要计算出整个树的深度，其实就是比较Max(left,right) + 1;再分解问题为计算一个节点的问题，也是要先遍历左，然后遍历右，最后比较大小
+        if(node == null) return -1;
+        int left = depth(node.leftChild);
+        int right = depth(node.rightChild);
+        return Math.max(left,right) + 1;
+    }
     public static void main(String[] args) {
         Node node = new Node(13);
         BinaryTree binaryTree = new BinaryTree(node);//初始化树
@@ -129,7 +186,7 @@ public class BinaryTree {
         binaryTree.inOrderTraverse();//中序遍历
         System.out.println("------------");
         binaryTree.postOrderTraverse();//后序遍历
-
+        System.out.println(binaryTree.depth());
 
     }
 }
