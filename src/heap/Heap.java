@@ -60,11 +60,12 @@ public class Heap {
      * @return: 
      **/
     private void heapify(int[] a, int n, int i) {
+
         while (true) {
             int maxPos = i;
             if(i * 2 <= n && a[i * 2] > a[i]) maxPos = i * 2;//比较左子树的大小
             if(i * 2 + 1 <= n && a[i * 2 + 1] > a[i]) maxPos = i * 2 + 1;//比较右子树的大小
-            if(maxPos == i) break;//如果发生交换的话，那么maxPos 和 i是肯定不等的
+            if(maxPos == i) break;//如果发生交换的话，那么maxPos 和 i是肯定不等的，没发生交换的话 说明已经找到了最大值
             swap(a,i,maxPos);
             i = maxPos;
         }
@@ -78,6 +79,7 @@ public class Heap {
 
 
     public void buildHeap(int[] a , int n) {
+        //n/2+1~n都是叶子结点
         for(int i = n / 2; i >= 1; i--) {
             heapify(a,n,i);
         }
