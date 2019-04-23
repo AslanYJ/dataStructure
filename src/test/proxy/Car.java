@@ -14,7 +14,6 @@ public class Car implements Move {
     }
 
     public static void main(String[] args) {
-        Hashtable
         Class clazz1 = new ArrayList<String>().getClass();
         Class clazz2 = new ArrayList<Integer>().getClass();
         System.out.println(clazz1 == clazz2);

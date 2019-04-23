@@ -28,6 +28,7 @@ public class QuickSort {
     }
 
     public int partition(int[] array, int p, int r) {
+        //每次取最后一个作为分界点
         int pivot = array[r];
         int i = p;
         int j = p;
