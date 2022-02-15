@@ -1,4 +1,4 @@
-package charMatch;
+package charmatch;
 
 /**
  * kmp算法

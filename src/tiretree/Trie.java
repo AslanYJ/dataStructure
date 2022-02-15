@@ -1,4 +1,4 @@
-package tireTree;
+package tiretree;
 
 public class Trie {
     private TrieNode root = new TrieNode('/'); // 存储无意义字符
